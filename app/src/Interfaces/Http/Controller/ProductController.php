@@ -62,4 +62,26 @@ class ProductController extends AbstractFOSRestController
         $responseDto->setId($product->getId());
         return $responseDto;
     }
+
+    /**
+     * @Rest\Delete("/{id}", requirements={"id"="\d+"}))
+     * @Rest\View(statusCode=204)
+     *
+     * @param int $id
+     */
+    public function deleteProductById(int $id): void
+    {
+        $this->productService->deleteById($id);
+    }
+
+    /**
+     * @Rest\Delete("/sku/{sku}")
+     * @Rest\View(statusCode=204)
+     *
+     * @param string $sku
+     */
+    public function deleteProductBySku(string $sku): void
+    {
+        $this->productService->deleteBySku($sku);
+    }
 }

@@ -16,11 +16,13 @@ use DateTime;
  * @ORM\Table(name="product",
  *     uniqueConstraints={
  *        @ORM\UniqueConstraint(name="sku_unique",
- *            columns={"sku"})
+ *            columns={"sku","date_deleted"})
  *    })
  */
 class Product
 {
+    public const DEFAULT_DATE_DELETED = '1000-01-01 00:00:00';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -74,7 +76,7 @@ class Product
      * @var DateTime|null
      * @ORM\Column(type="datetime", name="date_deleted", nullable=true)
      */
-    private ?DateTime $dateDeleted = null;
+    private DateTime $dateDeleted;
 
     /**
      * @return int

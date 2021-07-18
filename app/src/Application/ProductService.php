@@ -25,4 +25,14 @@ class ProductService
     {
         return $this->productChanger->createProduct($sku, $name, $type, $price);
     }
+
+    public function deleteById(int $id): void
+    {
+        $this->productChanger->deleteById($id);
+    }
+
+    public function deleteBySku(string $sku): void
+    {
+        $this->productChanger->deleteBySku($sku);
+    }
 }

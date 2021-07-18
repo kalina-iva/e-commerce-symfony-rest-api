@@ -33,4 +33,30 @@ class ProductRepository implements ProductRepositoryInterface
             ->getQuery()
             ->getResult();
     }
+
+    public function getById(int $id): ?Product
+    {
+        return $this->entityManager
+            ->getRepository(Product::class)
+            ->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.id = :id')
+            ->andWhere('p.isDeleted = false')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getBySku(string $sku): ?Product
+    {
+        return $this->entityManager
+            ->getRepository(Product::class)
+            ->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.sku = :sku')
+            ->andWhere('p.isDeleted = false')
+            ->setParameter('sku', $sku)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
