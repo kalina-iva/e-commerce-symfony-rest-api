@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+    database:
+        image: postgres:13-alpine
+        container_name: ordm-postgres
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: password
+            POSTGRES_DB: main
+        ports:
+            - "5432:5432"

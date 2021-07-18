@@ -11,6 +11,8 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
+    private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
+
     protected function configureContainer(ContainerConfigurator $container): void
     {
         $container->import('../config/{packages}/*.yaml');
@@ -22,6 +24,12 @@ class Kernel extends BaseKernel
         } else {
             $container->import('../config/{services}.php');
         }
+
+        $container->import(__DIR__ . '/Resources/config/*' . self::CONFIG_EXTS, 'glob');
+        $container->import(
+            __DIR__ . '/Resources/config/' . $this->environment . '/*' . self::CONFIG_EXTS,
+            'glob'
+        );
     }
 
     protected function configureRoutes(RoutingConfigurator $routes): void
