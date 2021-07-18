@@ -6,6 +6,7 @@ namespace App\Application;
 
 use App\Domain\Product\Entity\Product;
 use App\Domain\Product\ProductChanger;
+use App\Interfaces\Dto\Product\ProductDto;
 
 class ProductService
 {
@@ -39,5 +40,10 @@ class ProductService
     public function getBySku(string $sku): ?Product
     {
         return $this->productChanger->getBySku($sku);
+    }
+
+    public function changeProduct(Product $product, string $sku, string $name, string $type, float $price): void
+    {
+        $this->productChanger->changeProduct($product, $sku, $name, $type, $price);
     }
 }

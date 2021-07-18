@@ -6,7 +6,7 @@ namespace App\Interfaces\Dto\Product;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class CreateProductDto
+class ProductDto
 {
     /**
      * @var string

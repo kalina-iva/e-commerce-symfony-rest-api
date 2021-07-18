@@ -6,7 +6,7 @@ namespace App\Interfaces\Http\Controller;
 
 use App\Application\ProductService;
 use App\Domain\Product\Entity\Product;
-use App\Interfaces\Dto\Product\CreateProductDto;
+use App\Interfaces\Dto\Product\ProductDto;
 use App\Interfaces\Dto\Product\ProductIdResponseDto;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -42,12 +42,12 @@ class ProductController extends AbstractFOSRestController
      * @ParamConverter("dto", converter="fos_rest.request_body")
      * @Rest\View(statusCode=201, serializerGroups={"get_product"})
      *
-     * @param CreateProductDto $dto
+     * @param ProductDto $dto
      * @param ConstraintViolationListInterface $validationErrors
      * @return ProductIdResponseDto
      */
     public function createProduct(
-        CreateProductDto $dto,
+        ProductDto $dto,
         ConstraintViolationListInterface $validationErrors
     ): ProductIdResponseDto {
         if (count($validationErrors) > 0) {
@@ -117,6 +117,50 @@ class ProductController extends AbstractFOSRestController
         if (!$product) {
             throw new BadRequestException("Product not found by sku = $sku");
         }
+        return $product;
+    }
+
+    /**
+     * @Rest\Put("/{id}", requirements={"id"="\d+"}))
+     * @ParamConverter("dto", converter="fos_rest.request_body")
+     * @Rest\View(statusCode=200, serializerGroups={"get_product"})
+     *
+     * @param int $id
+     * @param ProductDto $dto
+     * @return Product
+     */
+    public function changeProductById(int $id, ProductDto $dto): Product
+    {
+        $product = $this->getProductById($id);
+        $this->productService->changeProduct(
+            $product,
+            $dto->getSku(),
+            $dto->getName(),
+            $dto->getType(),
+            $dto->getPrice()
+        );
+        return $product;
+    }
+
+    /**
+     * @Rest\Put("/sku/{sku}")
+     * @ParamConverter("dto", converter="fos_rest.request_body")
+     * @Rest\View(statusCode=200, serializerGroups={"get_product"})
+     *
+     * @param string $sku
+     * @param ProductDto $dto
+     * @return Product
+     */
+    public function changeProductBySku(string $sku, ProductDto $dto): Product
+    {
+        $product = $this->getProductBySku($sku);
+        $this->productService->changeProduct(
+            $product,
+            $dto->getSku(),
+            $dto->getName(),
+            $dto->getType(),
+            $dto->getPrice()
+        );
         return $product;
     }
 }

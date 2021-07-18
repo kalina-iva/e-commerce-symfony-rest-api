@@ -20,14 +20,19 @@ class ProductChanger
     public function createProduct(string $sku, string $name, string $type, float $price): Product
     {
         $product = new Product();
-        $product->setName($name);
-        $product->setSku($sku);
-        $product->setType($type);
-        $product->setPrice($price);
+        $this->setValuesToProduct($product, $sku, $name, $type, $price);
         $product->setDateCreated(new DateTime());
         $product->setDateDeleted(DateTime::createFromFormat('Y-m-d H:i:s', Product::DEFAULT_DATE_DELETED));
         $this->repository->save($product);
         return $product;
+    }
+
+    private function setValuesToProduct(Product $product, string $sku, string $name, string $type, float $price): void
+    {
+        $product->setName($name);
+        $product->setSku($sku);
+        $product->setType($type);
+        $product->setPrice($price);
     }
 
     public function getProducts(): array
@@ -50,5 +55,11 @@ class ProductChanger
     public function getBySku(string $sku): ?Product
     {
         return $this->repository->getBySku($sku);
+    }
+
+    public function changeProduct(Product $product, string $sku, string $name, string $type, float $price): void
+    {
+        $this->setValuesToProduct($product, $sku, $name, $type, $price);
+        $this->repository->save($product);
     }
 }
