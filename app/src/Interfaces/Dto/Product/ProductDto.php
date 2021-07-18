@@ -10,22 +10,37 @@ class ProductDto
 {
     /**
      * @var string
+     * @Assert\NotBlank
+     * @Assert\Length(max=64)
+     * @Assert\Regex(
+     *     pattern = "/^\S+$/",
+     *     message="sku cannot contain spaces"
+     * )
      */
     private string $sku;
 
     /**
      * @var string
+     * @Assert\NotBlank
+     * @Assert\Length(max=255)
      */
     private string $name;
 
     /**
      * @var string
+     * @Assert\NotBlank
+     * @Assert\Choice({"game", "GAME", "currency", "CURRENCY"})
      */
     private string $type;
 
     /**
      * @var float
      * @Assert\Type("float")
+     * @Assert\NotBlank()
+     * @Assert\PositiveOrZero
+     * @Assert\LessThan(
+     *     value = 9999999999
+     * )
      */
     private float $price;
 
@@ -66,7 +81,7 @@ class ProductDto
      */
     public function getType(): string
     {
-        return $this->type;
+        return strtoupper($this->type);
     }
 
     /**

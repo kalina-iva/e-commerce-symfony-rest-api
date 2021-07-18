@@ -12,6 +12,7 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  * @Rest\Route("/v1/product")
@@ -44,10 +45,16 @@ class ProductController extends AbstractFOSRestController
      * @Rest\View(statusCode=201, serializerGroups={"get_product"})
      *
      * @param ProductDto $dto
+     * @param ConstraintViolationListInterface $validationErrors
      * @return ProductIdResponseDto
      */
-    public function createProduct(ProductDto $dto): ProductIdResponseDto
-    {
+    public function createProduct(
+        ProductDto $dto,
+        ConstraintViolationListInterface $validationErrors
+    ): ProductIdResponseDto {
+        if (count($validationErrors) > 0) {
+            throw new BadRequestException($validationErrors[0]->getMessage());
+        }
         $product = $this->productService->createProduct(
             $dto->getSku(),
             $dto->getName(),
@@ -122,10 +129,17 @@ class ProductController extends AbstractFOSRestController
      *
      * @param int $id
      * @param ProductDto $dto
+     * @param ConstraintViolationListInterface $validationErrors
      * @return Product
      */
-    public function changeProductById(int $id, ProductDto $dto): Product
-    {
+    public function changeProductById(
+        int $id,
+        ProductDto $dto,
+        ConstraintViolationListInterface $validationErrors
+    ): Product {
+        if (count($validationErrors) > 0) {
+            throw new BadRequestException($validationErrors[0]->getMessage());
+        }
         $product = $this->getProductById($id);
         $this->productService->changeProduct(
             $product,
@@ -144,10 +158,17 @@ class ProductController extends AbstractFOSRestController
      *
      * @param string $sku
      * @param ProductDto $dto
+     * @param ConstraintViolationListInterface $validationErrors
      * @return Product
      */
-    public function changeProductBySku(string $sku, ProductDto $dto): Product
-    {
+    public function changeProductBySku(
+        string $sku,
+        ProductDto $dto,
+        ConstraintViolationListInterface $validationErrors
+    ): Product {
+        if (count($validationErrors) > 0) {
+            throw new BadRequestException($validationErrors[0]->getMessage());
+        }
         $product = $this->getProductBySku($sku);
         $this->productService->changeProduct(
             $product,

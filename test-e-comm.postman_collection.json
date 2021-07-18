@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"sku\": \"hhff2\",\n    \"name\": \"product 1\",\n    \"type\": \"ggd\",\n    \"price\": 123.98\n}",
+					"raw": "{\n    \"sku\": \"sku-1\",\n    \"name\": \"product 1\",\n    \"type\": \"game\",\n    \"price\": 123.98\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -20,15 +20,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/v1/product",
-					"protocol": "http",
+					"raw": "{{endpoint}}/v1/product",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{endpoint}}"
 					],
-					"port": "8000",
 					"path": [
 						"v1",
 						"product"
@@ -43,19 +38,17 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/v1/product/all",
-					"protocol": "http",
+					"raw": "{{endpoint}}/v1/product/page/1/limit/5",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{endpoint}}"
 					],
-					"port": "8000",
 					"path": [
 						"v1",
 						"product",
-						"all"
+						"page",
+						"1",
+						"limit",
+						"5"
 					]
 				}
 			},
@@ -67,15 +60,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/v1/product/11",
-					"protocol": "http",
+					"raw": "{{endpoint}}/v1/product/11",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{endpoint}}"
 					],
-					"port": "8000",
 					"path": [
 						"v1",
 						"product",
@@ -91,20 +79,15 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/v1/product/sku/hhff2",
-					"protocol": "http",
+					"raw": "{{endpoint}}/v1/product/sku/test-sku",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{endpoint}}"
 					],
-					"port": "8000",
 					"path": [
 						"v1",
 						"product",
 						"sku",
-						"hhff2"
+						"test-sku"
 					]
 				}
 			},
@@ -116,15 +99,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/v1/product/16",
-					"protocol": "http",
+					"raw": "{{endpoint}}/v1/product/16",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{endpoint}}"
 					],
-					"port": "8000",
 					"path": [
 						"v1",
 						"product",
@@ -140,20 +118,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/v1/product/sku/hhff2",
-					"protocol": "http",
+					"raw": "{{endpoint}}/v1/product/sku/test-sku",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{endpoint}}"
 					],
-					"port": "8000",
 					"path": [
 						"v1",
 						"product",
 						"sku",
-						"hhff2"
+						"test-sku"
 					]
 				}
 			},
@@ -166,7 +139,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"sku\": \"new sku\",\n    \"name\": \"product 2\",\n    \"type\": \"tp\",\n    \"price\": 125.98\n}",
+					"raw": "{\n    \"sku\": \"sku-1\",\n    \"name\": \"product 1\",\n    \"type\": \"game\",\n    \"price\": 123.98\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -174,15 +147,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/v1/product/16",
-					"protocol": "http",
+					"raw": "{{endpoint}}/v1/product/16",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{endpoint}}"
 					],
-					"port": "8000",
 					"path": [
 						"v1",
 						"product",
@@ -199,7 +167,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"sku\": \"new--sku\",\n    \"name\": \"product 3\",\n    \"type\": \"tp\",\n    \"price\": 125.98\n}",
+					"raw": "{\n    \"sku\": \"sku-1\",\n    \"name\": \"product 1\",\n    \"type\": \"game\",\n    \"price\": 123.98\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -207,15 +175,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/v1/product/sku/new-sku",
-					"protocol": "http",
+					"raw": "{{endpoint}}/v1/product/sku/new-sku",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{endpoint}}"
 					],
-					"port": "8000",
 					"path": [
 						"v1",
 						"product",
