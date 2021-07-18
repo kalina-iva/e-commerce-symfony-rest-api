@@ -84,4 +84,36 @@ class ProductController extends AbstractFOSRestController
     {
         $this->productService->deleteBySku($sku);
     }
+
+    /**
+     * @Rest\Get("/{id}", requirements={"id"="\d+"}))
+     * @Rest\View(statusCode=200, serializerGroups={"get_product"})
+     *
+     * @param int $id
+     * @return Product
+     */
+    public function getProductById(int $id): Product
+    {
+        $product = $this->productService->getById($id);
+        if (!$product) {
+            // error
+        }
+        return $product;
+    }
+
+    /**
+     * @Rest\Get("/sku/{sku}")
+     * @Rest\View(statusCode=200, serializerGroups={"get_product"})
+     *
+     * @param string $sku
+     * @return Product
+     */
+    public function getProductBySku(string $sku): Product
+    {
+        $product = $this->productService->getBySku($sku);
+        if (!$product) {
+            // error
+        }
+        return $product;
+    }
 }

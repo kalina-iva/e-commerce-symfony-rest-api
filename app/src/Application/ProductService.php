@@ -35,4 +35,14 @@ class ProductService
     {
         $this->productChanger->deleteBySku($sku);
     }
+
+    public function getById(int $id): ?Product
+    {
+        return $this->productChanger->getById($id);
+    }
+
+    public function getBySku(string $sku): ?Product
+    {
+        return $this->productChanger->getBySku($sku);
+    }
 }

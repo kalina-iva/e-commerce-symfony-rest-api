@@ -57,4 +57,14 @@ class ProductChanger
         $product->setDateDeleted(new DateTime());
         $this->repository->save($product);
     }
+
+    public function getById(int $id): ?Product
+    {
+        return $this->repository->getById($id);
+    }
+
+    public function getBySku(string $sku): ?Product
+    {
+        return $this->repository->getBySku($sku);
+    }
 }
