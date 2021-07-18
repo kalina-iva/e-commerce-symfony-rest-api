@@ -6,7 +6,9 @@ namespace App\Infrastructure\Product;
 
 use App\Domain\Product\Entity\Product;
 use App\Domain\Product\Repository\ProductRepositoryInterface;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -20,10 +22,15 @@ class ProductRepository implements ProductRepositoryInterface
     public function save(Product $product): void
     {
         $this->entityManager->persist($product);
-        $this->entityManager->flush();
+
+        try {
+            $this->entityManager->flush();
+        } catch (UniqueConstraintViolationException $exception) {
+            throw new BadRequestException('Product with such sku already exists');
+        }
     }
 
-    public function getProducts(): array
+    public function getProducts(int $page, int $limit): array
     {
         return $this->entityManager
             ->getRepository(Product::class)
@@ -31,6 +38,8 @@ class ProductRepository implements ProductRepositoryInterface
             ->select('p')
             ->where('p.isDeleted = false')
             ->getQuery()
+            ->setFirstResult($limit * ($page - 1))
+            ->setMaxResults($limit)
             ->getResult();
     }
 

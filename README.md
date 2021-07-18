@@ -19,7 +19,7 @@
 **POST** http://`ip_server`/v1/product
 
 #### Получение списка продуктов
-**GET** http://`ip_server`/v1/product/all
+**GET** http://`ip_server`/v1/product/page/{page}/limit/{limit}
 
 #### Получение продукта по его id
 **GET** http://`ip_server`/v1/product/{id}
@@ -38,3 +38,12 @@
 
 #### Удаление продукта по его sku
 **DELETE** http://`ip_server`/v1/product/sku/{sku}
+
+при создании и изменении продукта структура body
+
+{
+"sku": "sku-7",
+"name": "product 7",
+"type": "game",
+"price": 123.98
+}

@@ -10,7 +10,7 @@ interface ProductRepositoryInterface
 {
     public function save(Product $product): void;
 
-    public function getProducts(): array;
+    public function getProducts(int $page, int $limit): array;
 
     public function getById(int $id): ?Product;
 

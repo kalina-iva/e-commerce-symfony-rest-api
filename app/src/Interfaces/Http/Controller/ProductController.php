@@ -12,7 +12,6 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  * @Rest\Route("/v1/product")
@@ -27,14 +26,16 @@ class ProductController extends AbstractFOSRestController
     }
 
     /**
-     * @Rest\Get("/all")
+     * @Rest\Get("/page/{page}/limit/{limit}", requirements={"page"="\d+","limit"="\d+"})
      * @Rest\View(statusCode=200, serializerGroups={"get_product"})
      *
+     * @param int $page
+     * @param int $limit
      * @return Product[]
      */
-    public function getProducts(): array
+    public function getProducts(int $page, int $limit): array
     {
-        return $this->productService->getProducts();
+        return $this->productService->getProducts($page, $limit);
     }
 
     /**
@@ -43,16 +44,10 @@ class ProductController extends AbstractFOSRestController
      * @Rest\View(statusCode=201, serializerGroups={"get_product"})
      *
      * @param ProductDto $dto
-     * @param ConstraintViolationListInterface $validationErrors
      * @return ProductIdResponseDto
      */
-    public function createProduct(
-        ProductDto $dto,
-        ConstraintViolationListInterface $validationErrors
-    ): ProductIdResponseDto {
-        if (count($validationErrors) > 0) {
-
-        }
+    public function createProduct(ProductDto $dto): ProductIdResponseDto
+    {
         $product = $this->productService->createProduct(
             $dto->getSku(),
             $dto->getName(),

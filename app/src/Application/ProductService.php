@@ -6,7 +6,6 @@ namespace App\Application;
 
 use App\Domain\Product\Entity\Product;
 use App\Domain\Product\ProductChanger;
-use App\Interfaces\Dto\Product\ProductDto;
 
 class ProductService
 {
@@ -17,9 +16,9 @@ class ProductService
         $this->productChanger = $productChanger;
     }
 
-    public function getProducts(): array
+    public function getProducts(int $page, int $limit): array
     {
-        return $this->productChanger->getProducts();
+        return $this->productChanger->getProducts($page, $limit);
     }
 
     public function createProduct(string $sku, string $name, string $type, float $price): Product

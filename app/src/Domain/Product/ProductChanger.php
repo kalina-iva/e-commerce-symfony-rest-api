@@ -35,9 +35,9 @@ class ProductChanger
         $product->setPrice($price);
     }
 
-    public function getProducts(): array
+    public function getProducts(int $page, int $limit): array
     {
-        return $this->repository->getProducts();
+        return $this->repository->getProducts($page, $limit);
     }
 
     public function markAsDeleted(Product $product): void
