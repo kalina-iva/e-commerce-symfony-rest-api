@@ -8,9 +8,6 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 
 /**
- * Class ProductController
- * @package App\Controller
- *
  * @Rest\Route("/v1/product")
  */
 class ProductController extends AbstractFOSRestController
@@ -18,8 +15,8 @@ class ProductController extends AbstractFOSRestController
     /**
      * @Rest\Get("")
      */
-    public function getProduct()
+    public function getProduct(): array
     {
-        var_dump('hi');
+        return ['hi' => 'ok'];
     }
 }

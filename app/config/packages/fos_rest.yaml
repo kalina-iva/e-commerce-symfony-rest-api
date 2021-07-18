@@ -12,4 +12,4 @@ fos_rest:
     format_listener:
         enabled: true
         rules:
-            - { path: ^/, prefer_extension: true, fallback_format: json, priorities: [ json, html ] }
+            - { path: ^/, prefer_extension: true, fallback_format: json, priorities: [ json ] }
