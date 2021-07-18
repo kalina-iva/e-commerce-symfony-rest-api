@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Interfaces\Http\Controller;
 
 use App\Application\ProductService;
+use App\Domain\Product\Entity\Product;
 use App\Interfaces\Dto\Product\CreateProductDto;
 use App\Interfaces\Dto\Product\ProductIdResponseDto;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -25,11 +26,14 @@ class ProductController extends AbstractFOSRestController
     }
 
     /**
-     * @Rest\Get("")
+     * @Rest\Get("/all")
+     * @Rest\View(statusCode=200, serializerGroups={"get_product"})
+     *
+     * @return Product[]
      */
-    public function getProduct(): array
+    public function getProducts(): array
     {
-        return $this->productService->getProduct();
+        return $this->productService->getProducts();
     }
 
     /**

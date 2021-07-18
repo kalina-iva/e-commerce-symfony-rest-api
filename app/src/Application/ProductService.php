@@ -16,9 +16,9 @@ class ProductService
         $this->productChanger = $productChanger;
     }
 
-    public function getProduct(): array
+    public function getProducts(): array
     {
-        return ['hi' => 'ok'];
+        return $this->productChanger->getProducts();
     }
 
     public function createProduct(string $sku, string $name, string $type, float $price): Product

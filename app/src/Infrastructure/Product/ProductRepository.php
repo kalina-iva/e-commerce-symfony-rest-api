@@ -22,4 +22,15 @@ class ProductRepository implements ProductRepositoryInterface
         $this->entityManager->persist($product);
         $this->entityManager->flush();
     }
+
+    public function getProducts(): array
+    {
+        return $this->entityManager
+            ->getRepository(Product::class)
+            ->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.isDeleted = false')
+            ->getQuery()
+            ->getResult();
+    }
 }

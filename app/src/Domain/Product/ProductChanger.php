@@ -6,6 +6,7 @@ namespace App\Domain\Product;
 
 use App\Domain\Product\Entity\Product;
 use App\Domain\Product\Repository\ProductRepositoryInterface;
+use DateTime;
 
 class ProductChanger
 {
@@ -23,7 +24,13 @@ class ProductChanger
         $product->setSku($sku);
         $product->setType($type);
         $product->setPrice($price);
+        $product->setDateCreated(new DateTime());
         $this->repository->save($product);
         return $product;
+    }
+
+    public function getProducts(): array
+    {
+        return $this->repository->getProducts();
     }
 }

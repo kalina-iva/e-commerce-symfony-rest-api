@@ -9,4 +9,6 @@ use App\Domain\Product\Entity\Product;
 interface ProductRepositoryInterface
 {
     public function save(Product $product): void;
+
+    public function getProducts(): array;
 }

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Domain\Product\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use DateTime;
 
 /**
  * Class Product
@@ -23,7 +25,7 @@ class Product
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
-     *
+     * @Groups({"get_product"})
      * @var int
      */
     private int $id;
@@ -31,26 +33,48 @@ class Product
     /**
      * @var string
      * @ORM\Column(type="string", length=64)
+     * @Groups({"get_product"})
      */
     private string $sku;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=255)
+     * @Groups({"get_product"})
      */
     private string $name;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=255)
+     * @Groups({"get_product"})
      */
     private string $type;
 
     /**
      * @var float
      * @ORM\Column(type="decimal", precision=12, scale=2)
+     * @Groups({"get_product"})
      */
     private float $price;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", name="date_created")
+     */
+    private DateTime $dateCreated;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", name="is_deleted")
+     */
+    private bool $isDeleted = false;
+
+    /**
+     * @var DateTime|null
+     * @ORM\Column(type="datetime", name="date_deleted", nullable=true)
+     */
+    private ?DateTime $dateDeleted = null;
 
     /**
      * @return int
@@ -130,5 +154,53 @@ class Product
     public function setPrice(float $price): void
     {
         $this->price = $price;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getDateCreated(): DateTime
+    {
+        return $this->dateCreated;
+    }
+
+    /**
+     * @param DateTime $dateCreated
+     */
+    public function setDateCreated(DateTime $dateCreated): void
+    {
+        $this->dateCreated = $dateCreated;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsDeleted(): bool
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * @param bool $isDeleted
+     */
+    public function setIsDeleted(bool $isDeleted): void
+    {
+        $this->isDeleted = $isDeleted;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getDateDeleted(): ?DateTime
+    {
+        return $this->dateDeleted;
+    }
+
+    /**
+     * @param DateTime|null $dateDeleted
+     */
+    public function setDateDeleted(?DateTime $dateDeleted): void
+    {
+        $this->dateDeleted = $dateDeleted;
     }
 }
