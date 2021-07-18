@@ -35,23 +35,7 @@ class ProductChanger
         return $this->repository->getProducts();
     }
 
-    public function deleteById(int $id): void
-    {
-        $product = $this->repository->getById($id);
-        if ($product) {
-            $this->markAsDeleted($product);
-        }
-    }
-
-    public function deleteBySku(string $sku): void
-    {
-        $product = $this->repository->getBySku($sku);
-        if ($product) {
-            $this->markAsDeleted($product);
-        }
-    }
-
-    private function markAsDeleted(Product $product): void
+    public function markAsDeleted(Product $product): void
     {
         $product->setIsDeleted(true);
         $product->setDateDeleted(new DateTime());

@@ -11,6 +11,7 @@ use App\Interfaces\Dto\Product\ProductIdResponseDto;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
@@ -71,7 +72,8 @@ class ProductController extends AbstractFOSRestController
      */
     public function deleteProductById(int $id): void
     {
-        $this->productService->deleteById($id);
+        $product = $this->getProductById($id);
+        $this->productService->deleteProduct($product);
     }
 
     /**
@@ -82,7 +84,8 @@ class ProductController extends AbstractFOSRestController
      */
     public function deleteProductBySku(string $sku): void
     {
-        $this->productService->deleteBySku($sku);
+        $product = $this->getProductBySku($sku);
+        $this->productService->deleteProduct($product);
     }
 
     /**
@@ -96,7 +99,7 @@ class ProductController extends AbstractFOSRestController
     {
         $product = $this->productService->getById($id);
         if (!$product) {
-            // error
+            throw new BadRequestException("Product not found by id = $id");
         }
         return $product;
     }
@@ -112,7 +115,7 @@ class ProductController extends AbstractFOSRestController
     {
         $product = $this->productService->getBySku($sku);
         if (!$product) {
-            // error
+            throw new BadRequestException("Product not found by sku = $sku");
         }
         return $product;
     }
